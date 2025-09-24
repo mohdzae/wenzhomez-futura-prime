@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Filter, Grid, List, MapPin, Bed, Bath, Square } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -137,7 +138,9 @@ const Properties = () => {
 
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-luxury">{property.price}</span>
-          <Button className="btn-glass">View Details</Button>
+          <Link to={`/properties/${property.id}`}>
+            <Button className="btn-glass">View Details</Button>
+          </Link>
         </div>
       </div>
     </div>
