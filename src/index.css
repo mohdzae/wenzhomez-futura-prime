@@ -2,41 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Wenzhomez Real Estate Design System - Luxurious & Futuristic */
 
 @layer base {
   :root {
+    /* Core Colors - HSL Values */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 15% 15%;
 
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 15% 15%;
+    --card-glass: 220 20% 98%;
 
+    /* Interactive Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Brand Colors */
+    --primary: 220 30% 8%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 220 40% 15%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Luxury Accent */
+    --luxury: 45 100% 55%;
+    --luxury-foreground: 220 30% 8%;
+    --luxury-soft: 45 60% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Secondary Palette */
+    --secondary: 220 15% 96%;
+    --secondary-foreground: 220 15% 15%;
+    --secondary-dark: 220 20% 12%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Neutral System */
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 10% 45%;
+    --muted-dark: 220 20% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Accent Colors */
+    --accent: 220 15% 96%;
+    --accent-foreground: 220 15% 15%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Status Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    /* Interface Elements */
+    --border: 220 15% 92%;
+    --input: 220 15% 96%;
+    --ring: 220 30% 8%;
+
+    /* Design Tokens */
+    --radius: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--luxury)), hsl(var(--luxury) / 0.8));
+    --gradient-glass: linear-gradient(135deg, hsl(var(--card-glass)), hsl(var(--card-glass) / 0.8));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 50%, hsl(var(--luxury) / 0.1) 100%);
+
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--primary) / 0.25);
+    --shadow-glass: 0 8px 32px 0 hsl(var(--primary) / 0.1);
+    --shadow-card: 0 4px 16px 0 hsl(var(--primary) / 0.08);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Sidebar Colors */
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +140,100 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-outfit antialiased;
+  }
+}
+
+@layer components {
+  /* Glass Morphism Effects */
+  .glass {
+    @apply backdrop-blur-md bg-card-glass/80 border border-border/20;
+  }
+
+  .glass-card {
+    @apply glass rounded-lg shadow-glass;
+  }
+
+  /* Luxury Button Variants */
+  .btn-luxury {
+    @apply bg-gradient-to-r from-luxury to-luxury/90 text-luxury-foreground font-semibold 
+           px-8 py-3 rounded-lg shadow-luxury hover:shadow-luxury/70 
+           transform hover:-translate-y-0.5 transition-all duration-300;
+  }
+
+  .btn-hero {
+    @apply bg-gradient-primary text-primary-foreground font-semibold
+           px-10 py-4 rounded-xl shadow-luxury hover:shadow-luxury/70
+           transform hover:-translate-y-1 transition-all duration-300;
+  }
+
+  .btn-glass {
+    @apply glass text-foreground font-medium px-6 py-3 rounded-lg
+           hover:bg-card-glass/100 transform hover:-translate-y-0.5 
+           transition-all duration-300;
+  }
+
+  /* Property Card Styles */
+  .property-card {
+    @apply glass-card overflow-hidden hover:shadow-luxury/30
+           transform hover:-translate-y-2 transition-all duration-500;
+  }
+
+  .property-card-image {
+    @apply aspect-[4/3] overflow-hidden rounded-t-lg;
+  }
+
+  .property-card-image img {
+    @apply w-full h-full object-cover group-hover:scale-110 transition-transform duration-700;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-luxury bg-clip-text text-transparent;
+  }
+
+  .text-luxury-gradient {
+    @apply bg-gradient-to-r from-luxury to-luxury/70 bg-clip-text text-transparent;
+  }
+
+  /* Hero Section */
+  .hero-background {
+    @apply bg-gradient-hero relative overflow-hidden;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/40;
+  }
+
+  /* Search Bar Styles */
+  .search-container {
+    @apply glass-card p-8 max-w-4xl mx-auto;
+  }
+
+  /* Navigation Styles */
+  .nav-glass {
+    @apply glass border-b border-border/20 backdrop-blur-xl;
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
   }
 }
