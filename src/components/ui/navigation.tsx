@@ -62,15 +62,12 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Contact Info & CTA */}
+          {/* Contact Info */}
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="w-4 h-4" />
               <span>+1 (555) 123-4567</span>
             </div>
-            <button className="btn-luxury">
-              Get Started
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -110,9 +107,6 @@ const Navigation = () => {
                   <Mail className="w-4 h-4" />
                   <span>info@wenzhomez.com</span>
                 </div>
-                <button className="btn-luxury w-full">
-                  Get Started
-                </button>
               </div>
             </div>
           </div>

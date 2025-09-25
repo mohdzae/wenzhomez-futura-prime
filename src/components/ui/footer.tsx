@@ -14,13 +14,13 @@ const Footer = () => {
     { name: 'Properties', href: '/properties' },
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Services', href: '#' },
+    { name: 'Services', href: '/services' },
   ];
 
   const legalLinks = [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Cookie Policy', href: '#' },
+    { name: 'Privacy Policy', href: '/legal#privacy' },
+    { name: 'Terms of Service', href: '/legal#terms' },
+    { name: 'Cookie Policy', href: '/legal#cookies' },
   ];
 
   return (

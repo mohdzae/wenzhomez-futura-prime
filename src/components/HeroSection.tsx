@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Home, DollarSign } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import heroProperty from '@/assets/hero-property.jpg';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const [searchData, setSearchData] = useState({
     location: '',
     propertyType: '',
@@ -13,8 +15,12 @@ const HeroSection = () => {
   });
 
   const handleSearch = () => {
-    console.log('Search:', searchData);
-    // Navigate to properties page with filters
+    const params = new URLSearchParams();
+    if (searchData.location) params.set('location', searchData.location);
+    if (searchData.propertyType) params.set('propertyType', searchData.propertyType);
+    if (searchData.priceRange) params.set('priceRange', searchData.priceRange);
+    
+    navigate(`/properties?${params.toString()}`);
   };
 
   return (

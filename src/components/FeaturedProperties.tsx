@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Bed, Bath, Square, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import property1 from '@/assets/property-1.jpg';
@@ -111,10 +112,12 @@ const FeaturedProperties = () => {
                   <span className="text-2xl font-bold text-luxury">
                     {property.price}
                   </span>
-                  <Button variant="outline" className="btn-glass">
-                    View Details
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                  <Link to={`/properties/${property.id}`}>
+                    <Button variant="outline" className="btn-glass">
+                      View Details
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -123,10 +126,12 @@ const FeaturedProperties = () => {
 
         {/* View All Button */}
         <div className="text-center">
-          <Button className="btn-luxury">
-            View All Properties
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <Link to="/properties">
+            <Button className="btn-luxury">
+              View All Properties
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

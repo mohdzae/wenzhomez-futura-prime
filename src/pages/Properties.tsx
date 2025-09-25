@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Filter, Grid, List, MapPin, Bed, Bath, Square } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import property2 from '@/assets/property-2.jpg';
 import property3 from '@/assets/property-3.jpg';
 
 const Properties = () => {
+  const [searchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filters, setFilters] = useState({
     search: '',
@@ -18,6 +19,20 @@ const Properties = () => {
     priceRange: '',
     bedrooms: '',
   });
+
+  // Initialize filters from URL params
+  useEffect(() => {
+    const urlLocation = searchParams.get('location') || '';
+    const urlPropertyType = searchParams.get('propertyType') || '';
+    const urlPriceRange = searchParams.get('priceRange') || '';
+    
+    setFilters(prev => ({
+      ...prev,
+      location: urlLocation,
+      propertyType: urlPropertyType,
+      priceRange: urlPriceRange,
+    }));
+  }, [searchParams]);
 
   // Mock properties data
   const properties = [
@@ -95,6 +110,34 @@ const Properties = () => {
       featured: false
     }
   ];
+
+  // Filter properties based on current filters
+  const filteredProperties = properties.filter(property => {
+    const matchesSearch = !filters.search || 
+      property.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+      property.location.toLowerCase().includes(filters.search.toLowerCase());
+    
+    const matchesLocation = !filters.location || 
+      property.location.toLowerCase().includes(filters.location.toLowerCase());
+    
+    const matchesPropertyType = !filters.propertyType || 
+      property.type.toLowerCase() === filters.propertyType.toLowerCase();
+    
+    const matchesPriceRange = !filters.priceRange || (() => {
+      const price = parseInt(property.price.replace(/[$,]/g, ''));
+      switch(filters.priceRange) {
+        case '1m-3m': return price >= 1000000 && price <= 3000000;
+        case '3m-5m': return price >= 3000000 && price <= 5000000;
+        case '5m-10m': return price >= 5000000 && price <= 10000000;
+        case '10m+': return price >= 10000000;
+        default: return true;
+      }
+    })();
+    
+    const matchesBedrooms = !filters.bedrooms || property.beds >= parseInt(filters.bedrooms);
+    
+    return matchesSearch && matchesLocation && matchesPropertyType && matchesPriceRange && matchesBedrooms;
+  });
 
   const PropertyCard = ({ property }: { property: any }) => (
     <div className="property-card">
@@ -228,7 +271,7 @@ const Properties = () => {
                 More Filters
               </Button>
               <span className="text-sm text-muted-foreground">
-                {properties.length} properties found
+                {filteredProperties.length} properties found
               </span>
             </div>
 
@@ -259,7 +302,7 @@ const Properties = () => {
             ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
             : 'grid-cols-1'
         }`}>
-          {properties.map((property) => (
+          {filteredProperties.map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>
