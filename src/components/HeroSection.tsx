@@ -56,16 +56,19 @@ const HeroSection = () => {
                 <Input
                   placeholder="Enter location"
                   value={searchData.location}
-                  onChange={(e) => setSearchData({ ...searchData, location: e.target.value })}
-                  className="pl-10 h-12 bg-background/90 border-border/20 focus:bg-background"
+                  onChange={(e) => setSearchData(prev => ({ ...prev, location: e.target.value }))}
+                  className="pl-10 h-12 bg-background/90 border-border/20 focus:bg-background text-foreground placeholder:text-muted-foreground"
                 />
               </div>
 
               {/* Property Type */}
               <div className="relative">
                 <Home className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5 z-10" />
-                <Select value={searchData.propertyType} onValueChange={(value) => setSearchData({ ...searchData, propertyType: value })}>
-                  <SelectTrigger className="pl-10 h-12 bg-background/90 border-border/20 focus:bg-background">
+                <Select 
+                  value={searchData.propertyType} 
+                  onValueChange={(value) => setSearchData(prev => ({ ...prev, propertyType: value }))}
+                >
+                  <SelectTrigger className="pl-10 h-12 bg-background/90 border-border/20 focus:bg-background text-foreground data-[placeholder]:text-muted-foreground">
                     <SelectValue placeholder="Property Type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -81,8 +84,11 @@ const HeroSection = () => {
               {/* Price Range */}
               <div className="relative">
                 <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5 z-10" />
-                <Select value={searchData.priceRange} onValueChange={(value) => setSearchData({ ...searchData, priceRange: value })}>
-                  <SelectTrigger className="pl-10 h-12 bg-background/90 border-border/20 focus:bg-background">
+                <Select 
+                  value={searchData.priceRange} 
+                  onValueChange={(value) => setSearchData(prev => ({ ...prev, priceRange: value }))}
+                >
+                  <SelectTrigger className="pl-10 h-12 bg-background/90 border-border/20 focus:bg-background text-foreground data-[placeholder]:text-muted-foreground">
                     <SelectValue placeholder="Price Range" />
                   </SelectTrigger>
                   <SelectContent>
